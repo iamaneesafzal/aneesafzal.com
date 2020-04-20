@@ -12,5 +12,10 @@ def experiments():
     return render_template("experiments.html")
 
 
+@app.route('/retailext')
+def retailenxt():
+    return render_template("retailnext.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
