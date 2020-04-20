@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "aneesafzal_env/bin/python3.7",
+    "python.formatting.provider": "yapf"
+}
