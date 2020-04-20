@@ -1,5 +1,23 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, FileField, SubmitField
+from wtforms.validators import DataRequired, Length, regexp
+
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'eoakzGTaCx6Xblz1Sfxb71M5hmIqL9jt'
+
+
+class Covid19Form(FlaskForm):
+    cloudurl = StringField("Cloud Sub-domain",
+                           validators=[DataRequired(),
+                                       Length(min=2, max=20)])
+    sftpusername = StringField(
+        "sFTP Username", validators=[DataRequired(),
+                                     Length(min=2, max=20)])
+    sftppassword = PasswordField("sFTP Password", validators=[DataRequired()])
+    csvfile = FileField('CSV File', validators=[DataRequired()])
+    submit = SubmitField("Upload File")
 
 
 @app.route('/')
@@ -12,9 +30,17 @@ def experiments():
     return render_template("experiments.html")
 
 
-@app.route('/retailext')
-def retailenxt():
-    return render_template("retailnext.html")
+@app.route('/retailnext', methods=['GET', 'POST'])
+def retailnext():
+    form = Covid19Form()
+    if form.validate_on_submit():
+        flash(f'File uploaded for {form.cloudurl.data}!', 'Success')
+    return render_template("retailnext.html", form=form)
+
+
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
 
 
 if __name__ == "__main__":

@@ -16,14 +16,17 @@
                         <br>225,2020-01-20,202-03-30 </p>
                     <br>
                     <form class="form-horizontal" method="POST" action="">
-                        {{ form.hidden_tag() }}
+                        {{ form.hidden_tag()}}
                         <fieldset>
+
+                            <!-- Appended Input-->
                             <div class="form-group">
                                 <label class="col-md-6 control-label font-weight-bold"
-                                    for="appendedtext">{{form.cloudurl.label}}</label>
+                                    for="appendedtext">Sub-domain</label>
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        {{form.cloudurl(class="form-control",id="cloudurl",placeholder="sub-domain")}}
+                                        <input id="appendedtext" name="appendedtext" class="form-control"
+                                            placeholder="sub-domain" type="text" required="">
                                         <span class="input-group-text">.cloud.retailnext.net</span>
                                     </div>
                                     <p class="help-block">Only use customer's unique sub-domain</p>
@@ -31,34 +34,43 @@
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-6 control-label"
-                                    for="sftp-username">{{form.sftpusername.label}}</label>
+                                <label class="col-md-6 control-label" for="sftp-username">sFTP
+                                    Username</label>
                                 <div class="col-md-6">
-                                    {{form.cloudurl(class="form-control input-md",id="sftpusername")}}
-                                </div>
-                            </div>
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-6 control-label"
-                                    for="sftppassword">{{form.sftppassword.label}}</label>
-                                <div class="col-md-6">
-                                    {{form.sftppassword(class="form-control input-md",id="sftppassword")}}
-                                    <span class="help-block">Available in cloud Admin &gt;
-                                        File Upload
+                                    <input id="sftp-username" name="sftp-username" type="text" placeholder=""
+                                        class="form-control input-md" required="">
+                                    <span class="help-block">Available in cloud Admin &gt; File Upload
                                         Access</span>
                                 </div>
                             </div>
+
+                            <!-- Password input-->
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="sftp-password">sFTP
+                                    Password</label>
+                                <div class="col-md-6">
+                                    <input id="sftp-password" name="sftp-password" type="password" placeholder=""
+                                        class="form-control input-md" required="">
+                                    <span class="help-block">Available in cloud Admin &gt; File Upload
+                                        Access</span>
+                                </div>
+                            </div>
+
                             <!-- File Button -->
                             <div class="form-group">
+                                <label class="col-md-6 control-label" for="csv-file">Select CSV File</label>
                                 <div class="col-md-6">
-                                    {{form.csvfile(class="input-file", id="csv-file")}}
+                                    <input id="csv-file" name="csv-file" class="input-file" type="file">
                                 </div>
                             </div>
 
                             <!-- Button (Double) -->
                             <div class="form-group">
-                                <div class="col-md-6 mt-4">
-                                    {{form.submit(class="btn btn-success float-right", id="submit")}}
+                                <label class="col-md-6 control-label" for="submit"></label>
+                                <div class="col-md-6">
+                                    <button id="submit" name="submit" class="btn btn-success">Upload
+                                        File</button>
+                                    <button id="clear" name="clear" class="btn btn-danger">Clear</button>
                                 </div>
                             </div>
 
