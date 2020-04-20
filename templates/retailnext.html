@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 
-{%block content %}
-
+{% block content %}
 <main role="main" class="container">
     <div class="row">
         <div class="col-md-8">
+            <!-- {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {%- for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor -%}
+            {% endif %}
+            {% endwith %} -->
             <div class="media content-section">
                 <div class="media-body">
                     <h2>Covid19 Store Hours Bulk Update</h2>
@@ -58,7 +66,7 @@
                             <!-- Button (Double) -->
                             <div class="form-group">
                                 <div class="col-md-6 mt-4">
-                                    {{form.submit(class="btn btn-success float-right", id="submit")}}
+                                    <input type="Submit" value="Upload File" class="btn btn-success float-right">
                                 </div>
                             </div>
 

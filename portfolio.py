@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash
+from flask import Flask, render_template, url_for, flash, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, FileField, SubmitField
 from wtforms.validators import DataRequired, Length, regexp
@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'eoakzGTaCx6Xblz1Sfxb71M5hmIqL9jt'
 
 
-class Covid19Form(FlaskForm):
+class Covid19HoursForm(FlaskForm):
     cloudurl = StringField("Cloud Sub-domain",
                            validators=[DataRequired(),
                                        Length(min=2, max=20)])
@@ -16,7 +16,7 @@ class Covid19Form(FlaskForm):
         "sFTP Username", validators=[DataRequired(),
                                      Length(min=2, max=20)])
     sftppassword = PasswordField("sFTP Password", validators=[DataRequired()])
-    csvfile = FileField('CSV File', validators=[DataRequired()])
+    csvfile = FileField('CSV File')
     submit = SubmitField("Upload File")
 
 
@@ -32,9 +32,9 @@ def experiments():
 
 @app.route('/retailnext', methods=['GET', 'POST'])
 def retailnext():
-    form = Covid19Form()
+    form = Covid19HoursForm()
     if form.validate_on_submit():
-        flash(f'File uploaded for {form.cloudurl.data}!', 'Success')
+        return 'File uploaded to the cloud!'
     return render_template("retailnext.html", form=form)
 
 
