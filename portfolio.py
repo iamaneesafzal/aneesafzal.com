@@ -1,23 +1,12 @@
-from flask import Flask, render_template, url_for, flash, request
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, FileField, SubmitField
-from wtforms.validators import DataRequired, Length, regexp
+from flask import Flask, render_template, url_for, flash, request, redirect
+from retailnext import Covid19HoursForm, covid19hours
+from werkzeug.utils import secure_filename
+
+import os
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'eoakzGTaCx6Xblz1Sfxb71M5hmIqL9jt'
-
-
-class Covid19HoursForm(FlaskForm):
-    cloudurl = StringField("Cloud Sub-domain",
-                           validators=[DataRequired(),
-                                       Length(min=2, max=20)])
-    sftpusername = StringField(
-        "sFTP Username", validators=[DataRequired(),
-                                     Length(min=2, max=20)])
-    sftppassword = PasswordField("sFTP Password", validators=[DataRequired()])
-    csvfile = FileField('CSV File')
-    submit = SubmitField("Upload File")
 
 
 @app.route('/')
@@ -34,7 +23,15 @@ def experiments():
 def retailnext():
     form = Covid19HoursForm()
     if form.validate_on_submit():
-        return 'File uploaded to the cloud!'
+        custurl = form.cloudurl.data
+        sftpuser = form.sftpusername.data
+        sftppass = form.sftppassword.data
+        csvfile = form.csvfile.data
+        filename = secure_filename(csvfile.filename)
+        filepath = os.path.join('uploads', filename)
+        csvfile.save(filepath)
+        result = covid19hours(custurl, sftpuser, sftppass, filepath)
+        flash(result[0], result[1])
     return render_template("retailnext.html", form=form)
 
 

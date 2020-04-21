@@ -4,15 +4,15 @@
 <main role="main" class="container">
     <div class="row">
         <div class="col-md-8">
-            <!-- {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-            {%- for message in messages %}
-            <div class="alert alert-success">
+            {%- for category,message in messages %}
+            <div class="alert alert-{{category}} mt-4">
                 {{ message }}
             </div>
             {% endfor -%}
             {% endif %}
-            {% endwith %} -->
+            {% endwith %}
             <div class="media content-section">
                 <div class="media-body">
                     <h2>Covid19 Store Hours Bulk Update</h2>
@@ -23,54 +23,23 @@
                     <p>StoreID,Store-Closure-End-Date,Store-Closure-End-Date<br>223,2020-01-13,202-03-14
                         <br>225,2020-01-20,202-03-30 </p>
                     <br>
-                    <form class="form-horizontal" method="POST" action="">
+
+                    <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
                         <fieldset>
                             <div class="form-group">
-                                <label class="col-md-6 control-label font-weight-bold"
-                                    for="appendedtext">{{form.cloudurl.label}}</label>
                                 <div class="col-md-6">
-                                    <div class="input-group">
-                                        {{form.cloudurl(class="form-control",id="cloudurl",placeholder="sub-domain")}}
-                                        <span class="input-group-text">.cloud.retailnext.net</span>
-                                    </div>
-                                    <p class="help-block">Only use customer's unique sub-domain</p>
-                                </div>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-6 control-label"
-                                    for="sftp-username">{{form.sftpusername.label}}</label>
-                                <div class="col-md-6">
-                                    {{form.cloudurl(class="form-control input-md",id="sftpusername")}}
-                                </div>
-                            </div>
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-6 control-label"
-                                    for="sftppassword">{{form.sftppassword.label}}</label>
-                                <div class="col-md-6">
-                                    {{form.sftppassword(class="form-control input-md",id="sftppassword")}}
-                                    <span class="help-block">Available in cloud Admin &gt;
-                                        File Upload
-                                        Access</span>
-                                </div>
-                            </div>
-                            <!-- File Button -->
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    {{form.csvfile(class="input-file", id="csv-file")}}
-                                </div>
-                            </div>
-
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <div class="col-md-6 mt-4">
+                                    {{form.cloudurl.label}}
+                                    {{form.cloudurl(class="form-control")}}
+                                    {{form.sftpusername.label}}
+                                    {{form.sftpusername(class="form-control input-md")}}
+                                    {{form.sftppassword.label}}
+                                    {{form.sftppassword(class="form-control input-md")}}
+                                    {{form.csvfile(class="input-file mt-4")}}
                                     <input type="Submit" value="Upload File" class="btn btn-success float-right">
                                 </div>
-                            </div>
-
                         </fieldset>
+
                     </form>
                 </div>
 
@@ -81,7 +50,8 @@
                 <h3>Tiny Experiments</h3>
                 <p class='text-muted'>Most of these should be live.
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-light"><a href="/retailnext">RetailNext</a></li>
+                        <li class="list-group-item list-group-item-light"><a
+                                href="{{url_for('retailnext')}}">RetailNext</a></li>
                         <li class="list-group-item list-group-item-light"><a href="#">Distance Finder</a>
                         </li>
                         <li class="list-group-item list-group-item-light"><a href="#">Api</a></li>
