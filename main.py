@@ -28,7 +28,7 @@ def retailnext():
         sftppass = form.sftppassword.data
         csvfile = form.csvfile.data
         filename = secure_filename(csvfile.filename)
-        filepath = os.path.join('uploads', filename)
+        filepath = os.path.join('/tmp', filename)
         csvfile.save(filepath)
         result = covid19hours(custurl, sftpuser, sftppass, filepath)
         flash(result[0], result[1])
