@@ -30,8 +30,7 @@ def covid19hours(custurl, sftpuser, sftppass, csvfile):
                      str(date)[:10], "00:00:00", "00:00:00"])
         df = pd.DataFrame(output_list,
                           columns=["StoreID", "Date", "Opening", "Closing"])
-        df.to_csv(f"uploads/new_store_exception_hours_{csvfile[8:]}",
-                  index=False)
+        df.to_csv(f"/tmp/new_store_exception_hours_{csvfile[8:]}", index=False)
     except:
         return "Couldn't fix the file! Please check the File Format", "danger"
     try:
@@ -46,7 +45,7 @@ def covid19hours(custurl, sftpuser, sftppass, csvfile):
         sftp = ssh.open_sftp()
         sftp.chdir("/storehours_uploads/" + custurl)
         sftp.put(
-            f"uploads/new_store_exception_hours_{csvfile[8:]}",
+            f"/tmp/new_store_exception_hours_{csvfile[8:]}",
             f"new_store_exception_hours_{csvfile[8:]}",
             confirm=False,
         )
